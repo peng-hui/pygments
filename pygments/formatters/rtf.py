@@ -85,7 +85,7 @@ class RtfFormatter(Formatter):
                 # ASCII character
                 buf.append(str(c))
                 if cn == 10:
-                    buf.append('{\cf%d %d.} ' % (self.blackcolor, self.cur_lineo))
+                    buf.append('{\cf%d %2d.} ' % (self.blackcolor, self.cur_lineo))
                     self.cur_lineo += 1
             elif (2**7) <= cn < (2**16):
                 # single unicode escape sequence
@@ -129,7 +129,7 @@ class RtfFormatter(Formatter):
             outfile.write('\\fs%d' % self.fontsize)
 
         # highlight stream
-        outfile.write('{\cf%d %d.} ' % (self.blackcolor, self.cur_lineo))
+        outfile.write('{\cf%d %2d.} ' % (self.blackcolor, self.cur_lineo))
         self.cur_lineo += 1
         for ttype, value in tokensource:
             while not self.style.styles_token(ttype) and ttype.parent:
