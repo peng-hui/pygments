@@ -1,12 +1,12 @@
-Edits by Penghui Li
+Adding line numbers to richtext (rtf) format (and importing to power point).
 ===================
-1. Add line numbers to richtext (rtf) format. The line numbers are shown in black color (RGB(0,0,0)). This is done by modifying ``pygments/formatters/rtf.py``.
+1. The line numbers are shown in black color (RGB(0,0,0)). This is done by modifying ``pygments/formatters/rtf.py``.
 2. To avoid the conflict with the mainstream Pygments package, I modified the package name when installing it. In particular, the ``Pygments`` becomes ``Pygments1``; the ``pygmentize`` becomes ``pygmentize1``.
 3. To install, just run ``python setup.py install``. See ``setup.cfg`` for more details.
 
-On MacOS, to generate highlighted code in richtext and insert into power point, you can use ``pygmentize1 -f rtf FILE.php | pbcopy``, then you copy to TextEdit. Recopy the content from TextEdit and finally copy to power point. That's it [1].
+On MacOS, to generate highlighted code in richtext and insert into power point, you can use ``pygmentize1 -f rtf FILE.php | pbcopy``, then you paste to TextEdit. Recopy the content from TextEdit and finally paste to power point. That's it [1].
 
-`[1]: <https://gist.github.com/ept/4475995/>`_.
+[1]: https://gist.github.com/ept/4475995/
 
 
 Welcome to Pygments
