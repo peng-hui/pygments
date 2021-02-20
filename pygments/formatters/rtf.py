@@ -62,6 +62,8 @@ class RtfFormatter(Formatter):
         Formatter.__init__(self, **options)
         self.fontface = options.get('fontface') or ''
         self.fontsize = get_int_opt(options, 'fontsize', 0)
+        self.cur_lineo = 1
+        self.blackcolor = 0
 
     def _escape(self, text):
         return text.replace('\\', '\\\\') \
@@ -82,6 +84,9 @@ class RtfFormatter(Formatter):
             if cn < (2**7):
                 # ASCII character
                 buf.append(str(c))
+                if cn == 10:
+                    buf.append('{\cf%d %d.} ' % (self.blackcolor, self.cur_lineo))
+                    self.cur_lineo += 1
             elif (2**7) <= cn < (2**16):
                 # single unicode escape sequence
                 buf.append('{\\u%d}' % cn)
@@ -113,11 +118,19 @@ class RtfFormatter(Formatter):
                         int(color[4:6], 16)
                     ))
                     offset += 1
+        self.blackcolor = color_mapping['myblack'] = offset
+        outfile.write('\\red%d\\green%d\\blue%d;' % (
+            int(0),
+            int(0),
+            int(0),
+        ))
         outfile.write('}\\f0 ')
         if self.fontsize:
             outfile.write('\\fs%d' % self.fontsize)
 
         # highlight stream
+        outfile.write('{\cf%d %d.} ' % (self.blackcolor, self.cur_lineo))
+        self.cur_lineo += 1
         for ttype, value in tokensource:
             while not self.style.styles_token(ttype) and ttype.parent:
                 ttype = ttype.parent
