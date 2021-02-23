@@ -8,6 +8,8 @@ On MacOS, to generate highlighted code in richtext and insert into power point, 
 
 [1]: https://gist.github.com/ept/4475995/
 
+Bugs: 
+1. Code comments are usually in italic style. When a comment lies at the end of a line, and the next line starts with intents, the line number of the next line migit be italic style also. This is because the line end character and the intents (tabs or spaces) in the next line consists of one token in Pygments. Therefore, the line number I insert is also rendered with the local italic style.
 
 Welcome to Pygments
 ===================
